@@ -6,41 +6,45 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour {
     public float lookRadius = 10f;
     public Transform target;
-    static Animator anim;
-    NavMeshAgent agent;
+    private Animator anim;
+    private NavMeshAgent agent;
     int life = 100;
     bool isAlive = true;
-    float damageInterval = 5;
+    public float damageInterval = 5;
+    bool isPlayingDeathAnimation = false;
+    float currentTime = 0;
 
     // Use this for initialization
     void Start () {
         target = target ? target:GameObject.FindGameObjectWithTag("Player").transform;
-        agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
+        agent = GetComponent<NavMeshAgent>();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        currentTime += Time.deltaTime;
         float distance = Vector3.Distance(target.position, transform.position);
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("creature1Spawn") || anim.GetCurrentAnimatorStateInfo(0).IsName("creature1roar") || !isAlive
-            || anim.GetCurrentAnimatorStateInfo(0).IsName("creature1GetHit"))
+            || anim.GetCurrentAnimatorStateInfo(0).IsName("creature1GetHit") || anim.GetBool("isGettingHit"))
         {
             agent.velocity = Vector3.zero;
          
         } 
         
 
-        if (distance <= lookRadius){
+        if (distance <= lookRadius && isAlive){
             agent.SetDestination(target.position);
             if (distance <= agent.stoppingDistance)
             {
-                FaceTargert();
+                FaceTarget();
                 agent.velocity = Vector3.zero;
                 anim.SetBool("isIdle", false);
                 anim.SetBool("isDead", false);
                 anim.SetBool("isGettingHit", false);
                 anim.SetBool("isAttacking", true);
                 anim.SetBool("isWalking", false);
+                
             }
             else if(agent.speed > 0)
             {
@@ -61,19 +65,21 @@ public class EnemyController : MonoBehaviour {
             }
         }
 
-        if (Time.time > damageInterval)
+        if (currentTime > damageInterval && isAlive)
         {
-            damageInterval = Time.time + 2;
-            TakeDamage(10);
+            damageInterval = currentTime + 2;
+            TakeDamage(30);
         }
-
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("creature1Die"))
+         
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("creature1Die") && !isPlayingDeathAnimation) 
         {
+            anim.SetBool("isDead", false);
+            isPlayingDeathAnimation = true;
             Destroy(this.gameObject, (anim.GetCurrentAnimatorStateInfo(0).length) + 0.25f);
         }
     }
 
-    void FaceTargert()
+    void FaceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -89,7 +95,7 @@ public class EnemyController : MonoBehaviour {
         anim.SetBool("isDead", false);
         anim.SetBool("isGettingHit", true);
 
-        if (life <= 0)
+        if (life <= 0 && isAlive)
         {
             isAlive = false;
             anim.SetBool("isIdle", false);

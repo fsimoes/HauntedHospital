@@ -10,10 +10,12 @@ public class SpawnPoint : MonoBehaviour {
     private int spawnCount;
     public float interval;
     float nextSpawn = 0;
+    public int minStartOffset = 0;
+    public int maxStartOffset = 10;
     // Use this for initialization
     void Start () {
         //Instantiate(spawnGO, this.transform.position, new Quaternion(-90, 0, 0, 0), this.transform);
-
+        nextSpawn += Random.Range(minStartOffset, maxStartOffset);
     }
 
     // Update is called once per frame
