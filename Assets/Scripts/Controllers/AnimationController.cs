@@ -101,6 +101,7 @@ public class AnimationController : MonoBehaviour {
         anim = GetComponentInChildren<Animator>();
     }
 	
+   
     public string CurrentAnimation()
     {
         string currentAnimation = "";

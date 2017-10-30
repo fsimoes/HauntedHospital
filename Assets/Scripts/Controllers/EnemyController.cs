@@ -5,16 +5,19 @@ using UnityEngine.AI;
 
 
 public class EnemyController : MonoBehaviour {
-
     AnimationController animationController;
-    bool isPlayingDeathAnimation = false;
-    public float lookRadius = 10f;
-    public Transform target;
-    private NavMeshAgent agent;
-    int life = 100;
-    bool isAlive = true;
-    public float damageInterval = 5;
+    NavMeshAgent agent;
     float currentTime = 0;
+    bool isPlayingDeathAnimation = false;
+    bool isAlive = true;
+
+    public Transform target;
+
+    public float damageInterval = 5;
+    public int life = 100;
+    public float lookRadius = 10f;
+    
+    
     // Use this for initialization
     void Start () {
         animationController = GetComponent<AnimationController>();
