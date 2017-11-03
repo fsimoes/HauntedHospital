@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class lookAt : MonoBehaviour {
 
+    public Transform target;
 	// Use this for initialization
 	void Start () {
 		
@@ -11,6 +12,6 @@ public class lookAt : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        this.transform.LookAt(PlayerManager.instance.player.transform.position);
+        this.transform.LookAt(target.position);
 	}
 }
