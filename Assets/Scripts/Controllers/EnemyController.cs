@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour {
     public Transform target;
 
     public float damageInterval = 5;
-    public int life = 100;
+    public float life = 100;
     public float lookRadius = 10f;
     
     
@@ -32,7 +32,6 @@ public class EnemyController : MonoBehaviour {
         currentTime += Time.deltaTime;
         float distance = Vector3.Distance(target.position, transform.position);
         if (animationController.CurrentAnimation() ==  animationController.animationStates.IsIdle 
-            || animationController.CurrentAnimation() == animationController.animationStates.IsGettingHit
             || !isAlive
             || animationController.IsThisAnimationPlaying("Spawn")
             || animationController.IsThisAnimationPlaying("Intro")
@@ -82,15 +81,20 @@ public class EnemyController : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
+        if (!isAlive)
+        {
+            return;
+        }
         life -= damage;
         animationController.ChangeAnimationBool(animationController.animationStates.IsGettingHit);
-
+        Debug.Log("life"+life);
         if (life <= 0 && isAlive)
         {
             isAlive = false;
             animationController.ChangeAnimationBool(animationController.animationStates.IsDead);
+
         }
     }
 

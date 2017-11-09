@@ -90,8 +90,9 @@ public struct AnimationStates
 public class AnimationController : MonoBehaviour {
     private List<string> animationBools;
     private Animator anim;
+    private ArrayList timedBoolAnimations;
     public  AnimationStates animationStates { protected set; get; }
-
+    protected float currentTime = 0;
     // Use this for initialization
     void Start () {
         animationStates = new AnimationStates("isIdle");
@@ -99,9 +100,37 @@ public class AnimationController : MonoBehaviour {
         string[] animStates = { animationStates.IsIdle, animationStates.IsDead, animationStates.IsGettingHit, animationStates.IsAttacking, animationStates.IsWalking };
         animationBools.AddRange(animStates);
         anim = GetComponentInChildren<Animator>();
+        timedBoolAnimations = new ArrayList();
     }
-	
-   
+
+   protected void Update()
+    {
+        currentTime += Time.deltaTime;
+        CheckAnimationsBooleans();
+    }
+
+    private void CheckAnimationsBooleans()
+    {
+        foreach (ArrayList item in timedBoolAnimations)
+        {
+            if(currentTime > (float)item[0])
+            {
+                anim.SetBool((string)item[1],(bool)item[2]);
+                timedBoolAnimations.Remove(item);
+                break;
+            }
+        }
+    }
+
+
+    protected void ChangeAnimationBooleanWithTime(float time,string label,bool value)
+    {
+        ArrayList tempArray = new ArrayList();
+        tempArray.Add(time);
+        tempArray.Add(label);
+        tempArray.Add(value);
+        timedBoolAnimations.Add(tempArray);
+    }
     public string CurrentAnimation()
     {
         string currentAnimation = "";
