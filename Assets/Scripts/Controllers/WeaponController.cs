@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour {
 
     [SerializeField] Transform hand;
-    public bool IsShooting { protected set; get; }
+    public bool IsShooting { set; get; }
     public bool NeedReload { protected set; get; }
 
 
@@ -49,7 +49,7 @@ public class WeaponController : MonoBehaviour {
             this.transform.localPosition = startingShootingPosition;
             this.transform.localRotation = startingShootingRotation;
         }
-        IsShooting = false;
+        //IsShooting = false;
     }
 
     public int Shoot()
