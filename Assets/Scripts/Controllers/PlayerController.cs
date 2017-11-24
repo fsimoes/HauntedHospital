@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     PlayerAnimationController anim;
 
     private bool isReloading = false;
+    private bool isShooting = false;
     private float reloadingTime = 0;
     private float currentTime = 0;
     private bool noAmmo = false;
@@ -49,12 +50,18 @@ public class PlayerController : MonoBehaviour {
             if (noAmmo)
             {
                 Reload(true);
+                isShooting = false;
             }
             else
             {
                 noAmmo = weaponController.Shoot() == 0;
+                isShooting = true;
             }
+        }else
+        {
+            isShooting = false;
         }
+        weaponController.IsShooting = isShooting;
     }
     void Reload(bool forceReload = false)
     {

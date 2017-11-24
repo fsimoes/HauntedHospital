@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour {
     NavMeshAgent agent;
     float currentTime = 0;
     bool isPlayingDeathAnimation = false;
-    bool isAlive = true;
+    public bool isAlive { set; get; }
 
     public Transform target;
 
@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour {
         animationController = GetComponent<AnimationController>();
         target = target ? target:GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        isAlive = true;
     }
    
 	
@@ -89,7 +90,6 @@ public class EnemyController : MonoBehaviour {
         }
         life -= damage;
         animationController.ChangeAnimationBool(animationController.animationStates.IsGettingHit);
-        Debug.Log("life"+life);
         if (life <= 0 && isAlive)
         {
             isAlive = false;
