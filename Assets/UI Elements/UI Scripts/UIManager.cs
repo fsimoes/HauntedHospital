@@ -9,4 +9,11 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Enemy AI");
     }
+
+	public void Quit()
+	{
+		Application.Quit ();
+		Debug.Log ("Quit");
+
+	}
 }
