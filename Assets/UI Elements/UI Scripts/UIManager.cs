@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    public void StartGame()
+    public void StartGame(string name)
     {
-        SceneManager.LoadScene("Enemy AI");
+        SceneManager.LoadScene(name);
     }
 
 	public void Quit()
