@@ -39,9 +39,7 @@ public class EnemyController : MonoBehaviour {
             || animationController.IsThisAnimationPlaying("GetHit"))
         {
             agent.velocity = Vector3.zero;
-         
         } 
-        
 
         if (distance <= lookRadius && isAlive){
             agent.SetDestination(target.position);
