@@ -12,9 +12,10 @@ public class BulletCollider : MonoBehaviour {
             EnemyController monster = collision.gameObject.GetComponent<EnemyController>();
             if (monster.isAlive)
             {
-                Destroy(this.gameObject);
+               
                 monster.TakeDamage(damage);
             }
         }
+        Destroy(this.gameObject);
     }
 }

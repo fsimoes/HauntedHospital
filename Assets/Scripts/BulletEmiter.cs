@@ -13,7 +13,10 @@ public class BulletEmiter : MonoBehaviour {
 	public void Shoot()
     {
         Quaternion bulletRotation = transform.rotation;
+        //bulletRotation.y = Quaternion.identity.y;
         Vector3 bulletPosition = transform.position;
+
         Instantiate(bullet, bulletPosition, bulletRotation);
+       // Instantiate(bullet,transform,false);
     }
 }
