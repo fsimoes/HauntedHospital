@@ -16,9 +16,9 @@ public class Detection : MonoBehaviour
     [HideInInspector] public GameObject TextPrefabInstance; // A copy of the text prefab to prevent data corruption
     [HideInInspector] public bool TextActive;
 
-    [Tooltip("The image or text that is shown in the middle of the the screen.")]
-    public GameObject CrosshairPrefab;
-    [HideInInspector] public GameObject CrosshairPrefabInstance; // A copy of the crosshair prefab to prevent data corruption
+  //  [Tooltip("The image or text that is shown in the middle of the the screen.")]
+  //  public GameObject CrosshairPrefab;
+    //[HideInInspector] public GameObject CrosshairPrefabInstance; // A copy of the crosshair prefab to prevent data corruption
 
     // DEBUG SETTINGS
     [Header("Debug Settings")]
@@ -33,13 +33,13 @@ public class Detection : MonoBehaviour
         gameObject.name = "Player";
         gameObject.tag = "Player";
 
-        if (CrosshairPrefab == null) Debug.Log("<color=yellow><b>No CrosshairPrefab was found.</b></color>"); // Return an error if no crosshair was specified
+        //if (CrosshairPrefab == null) Debug.Log("<color=yellow><b>No CrosshairPrefab was found.</b></color>"); // Return an error if no crosshair was specified
 
-        else
-        {
-            CrosshairPrefabInstance = Instantiate(CrosshairPrefab); // Display the crosshair prefab
-            CrosshairPrefabInstance.transform.SetParent(transform, true); // Make the player the parent object of the crosshair prefab
-        }
+        //else
+        //{
+        //    //CrosshairPrefabInstance = Instantiate(CrosshairPrefab); // Display the crosshair prefab
+        //  //  CrosshairPrefabInstance.transform.SetParent(transform, true); // Make the player the parent object of the crosshair prefab
+        //}
 
         if (TextPrefab == null) Debug.Log("<color=yellow><b>No TextPrefab was found.</b></color>"); // Return an error if no text element was specified
 
@@ -110,6 +110,6 @@ public class Detection : MonoBehaviour
         }
 
         //Draw the ray as a colored line for debugging purposes.
-        Debug.DrawRay(ray.origin, ray.direction * Reach, DebugRayColor);
+      //  Debug.DrawRay(ray.origin, ray.direction * Reach, DebugRayColor);
     }
 }

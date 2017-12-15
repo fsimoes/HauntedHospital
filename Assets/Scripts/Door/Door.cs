@@ -37,7 +37,6 @@ public class Door : MonoBehaviour
     [Tooltip("The color of the visualization of the hinge.")]
     public Color HingeColor = Color.yellow;
 
-    NavMeshObstacle navObstacle;
 
     // Define an initial and final rotation
     Quaternion FinalRot, InitialRot;
@@ -46,12 +45,13 @@ public class Door : MonoBehaviour
     // Create a hinge
     GameObject hinge;
 
+    OffMeshLink[] meshLink;
     // An offset to take into account the original rotation of a 3rd party door
     Quaternion RotationOffset;
 
     void Start()
     {
-        navObstacle = GetComponent<NavMeshObstacle>();
+        meshLink = GetComponentsInChildren<OffMeshLink>();
         // Give the object the name "Door" for future reference
         gameObject.tag = "Door";
 
@@ -167,7 +167,20 @@ public class Door : MonoBehaviour
         {
             if (HingeType == TypeOfHinge.Centered)
             {
+                if (isOpen)
+                {
+                    // navObstacle.enabled = false;
 
+                    meshLink[0].activated = false;
+                    meshLink[1].activated = false;
+                }
+                else
+                {
+                    // navObstacle.enabled = true;
+
+                    meshLink[0].activated = true;
+                    meshLink[1].activated = true;
+                }
                 // Change state from 1 to 0 and back ( = alternate between FinalRot and InitialRot)
                 if (hinge.transform.rotation == (State == 0 ? FinalRot : InitialRot)) State ^= 1;
 
@@ -184,11 +197,15 @@ public class Door : MonoBehaviour
                 isOpen = !isOpen;
                 if (isOpen)
                 {
-                  //  navObstacle. = false;
+                    //  navObstacle. = false;
+                    meshLink[0].activated = true;
+                    meshLink[1].activated = true;
                 }
                 else
                 {
-                   // navObstacle.enabled = true;
+                    // navObstacle.enabled = true;
+                    meshLink[0].activated = false;
+                    meshLink[1].activated = false;
                 }
                 RotationPending = false;
 
@@ -203,7 +220,20 @@ public class Door : MonoBehaviour
 
                 // Set 'FinalRotation' to 'FinalRot' when moving and to 'InitialRot' when moving back
                 Quaternion FinalRotation = ((State == 0) ? FinalRot * RotationOffset : InitialRot * RotationOffset);
+                if (isOpen)
+                {
+                    // navObstacle.enabled = false;
 
+                    meshLink[0].activated = false;
+                    meshLink[1].activated = false;
+                }
+                else
+                {
+                    // navObstacle.enabled = true;
+
+                    meshLink[0].activated = true;
+                    meshLink[1].activated = true;
+                }
                 // Make the door/window rotate until it is fully opened/closed
                 while (Mathf.Abs(Quaternion.Angle(FinalRotation, transform.rotation)) > 0.01f)
                 {
@@ -214,10 +244,17 @@ public class Door : MonoBehaviour
                 isOpen = !isOpen;
                 if (isOpen)
                 {
-                   // navObstacle.enabled = false;
-                }else
+                    // navObstacle.enabled = false;
+
+                    meshLink[0].activated = true;
+                    meshLink[1].activated = true;
+                }
+                else
                 {
-                   // navObstacle.enabled = true;
+                    // navObstacle.enabled = true;
+
+                    meshLink[0].activated = false;
+                    meshLink[1].activated = false;
                 }
                 RotationPending = false;
                 if (TimesMoveable == 0) TimesRotated = 0;

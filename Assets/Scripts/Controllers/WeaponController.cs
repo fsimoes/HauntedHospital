@@ -19,11 +19,13 @@ public class WeaponController : MonoBehaviour {
     public float fireRate;
     float currentTime;
     float nextShot;
+
+    public GameObject bulletEmiterGO;
     BulletEmiter bullerEmiter;
     // Use this for initialization
     void Awake () {
         this.transform.SetParent(hand);
-        bullerEmiter = GetComponentInChildren<BulletEmiter>();
+        bullerEmiter = bulletEmiterGO.GetComponent<BulletEmiter>();
         currentAmmo = magazine;
     }
 	

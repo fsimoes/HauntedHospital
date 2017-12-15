@@ -16,19 +16,22 @@ public class EnemyController : MonoBehaviour {
     public float damageInterval = 5;
     public float life = 100;
     public float lookRadius = 10f;
-    
-    
+    Collider col;
+    public NavMeshPath navMeshPath;
+
     // Use this for initialization
     void Start () {
         animationController = GetComponent<AnimationController>();
         target = target ? target:GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         isAlive = true;
+        col = GetComponent<Collider>();
+        navMeshPath = new NavMeshPath();
     }
-   
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    // Update is called once per frame
+    void Update () {
       
         currentTime += Time.deltaTime;
         float distance = Vector3.Distance(target.position, transform.position);
@@ -43,17 +46,21 @@ public class EnemyController : MonoBehaviour {
 
         if (distance <= lookRadius && isAlive){
             agent.SetDestination(target.position);
+
             if (distance <= agent.stoppingDistance)
             {
                 FaceTarget();
                 agent.velocity = Vector3.zero;
                 animationController.ChangeAnimationBool(animationController.animationStates.IsAttacking);
+            }else if (!CalculateNewPath())
+            {
+                animationController.ChangeAnimationBool(animationController.animationStates.IsIdle);
             }
             else if(agent.speed > 0)
             {
                 animationController.ChangeAnimationBool(animationController.animationStates.IsWalking);
             }
-            else
+            else 
             {
                 animationController.ChangeAnimationBool(animationController.animationStates.IsIdle);
             }
@@ -72,12 +79,27 @@ public class EnemyController : MonoBehaviour {
         //    TakeDamage(20);
         //}
     }
+    bool CalculateNewPath()
+    {
+        agent.CalculatePath(target.position, navMeshPath);
+        if (navMeshPath.status != NavMeshPathStatus.PathComplete)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
     void FaceTarget()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        if(CalculateNewPath())
+        { 
+            Vector3 direction = (target.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
     }
 
     public void TakeDamage(float damage)
@@ -90,6 +112,7 @@ public class EnemyController : MonoBehaviour {
         animationController.ChangeAnimationBool(animationController.animationStates.IsGettingHit);
         if (life <= 0 && isAlive)
         {
+            col.enabled = false;
             isAlive = false;
             animationController.ChangeAnimationBool(animationController.animationStates.IsDead);
 
