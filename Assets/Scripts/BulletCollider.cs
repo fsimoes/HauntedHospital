@@ -16,6 +16,15 @@ public class BulletCollider : MonoBehaviour {
                 monster.TakeDamage(damage);
             }
         }
+        if (collision.gameObject.tag == "Zombie")
+        {
+            EnemyController zombie = collision.gameObject.GetComponent<EnemyController>();
+            if (zombie.isAlive)
+            {
+
+                zombie.TakeDamage(damage);
+            }
+        }
         Destroy(this.gameObject);
     }
 }

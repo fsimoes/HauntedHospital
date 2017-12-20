@@ -19,7 +19,7 @@ public class PauseGame : MonoBehaviour
             {
                 canvas.gameObject.SetActive(true);
                 creditCanvas.gameObject.SetActive(false);
-                Time.timeScale = 0.0f;
+                Time.timeScale = 0.001f;
          
             }
             else

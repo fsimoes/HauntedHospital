@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour {
     private float currentTime = 0;
     private bool noAmmo = false;
     // Use this for initialization
-    void Awake () {
+    void Awake ()
+    {
 
         playerRigidbody = GetComponent<Rigidbody>();
         weaponController = GetComponentInChildren<WeaponController>();

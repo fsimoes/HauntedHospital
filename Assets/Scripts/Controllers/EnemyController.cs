@@ -12,26 +12,51 @@ public class EnemyController : MonoBehaviour {
     public bool isAlive { set; get; }
 
     public Transform target;
+    PlayerHealthScript playerHealth;
 
-    public float damageInterval = 5;
+    public float damageInterval = 1;
+    public int attackDamage;
     public float life = 100;
     public float lookRadius = 10f;
+
+    bool playerInRange;
+
     Collider col;
     public NavMeshPath navMeshPath;
 
+ 
     // Use this for initialization
     void Start () {
         animationController = GetComponent<AnimationController>();
-        target = target ? target:GameObject.FindGameObjectWithTag("Player").transform;
+       
+        target = target ? target : GameObject.FindGameObjectWithTag("Player").transform;
+        playerHealth = target.GetComponent<PlayerHealthScript>();
         agent = GetComponent<NavMeshAgent>();
         isAlive = true;
         col = GetComponent<Collider>();
         navMeshPath = new NavMeshPath();
     }
 
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.gameObject.tag == "Player")
+    //    {
+    //        playerInRange = true;
+    //    }
+    //}
+
+    //void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.tag == "Player")
+    //    {
+    //        playerInRange = false;
+    //    }
+    //}
+
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
       
         currentTime += Time.deltaTime;
         float distance = Vector3.Distance(target.position, transform.position);
@@ -44,15 +69,19 @@ public class EnemyController : MonoBehaviour {
             agent.velocity = Vector3.zero;
         } 
 
-        if (distance <= lookRadius && isAlive){
+        if (distance <= lookRadius && isAlive)
+        {
             agent.SetDestination(target.position);
 
-            if (distance <= agent.stoppingDistance)
+            if (distance <= agent.stoppingDistance && currentTime > damageInterval && isAlive)
             {
                 FaceTarget();
                 agent.velocity = Vector3.zero;
                 animationController.ChangeAnimationBool(animationController.animationStates.IsAttacking);
-            }else if (!CalculateNewPath())
+                Attack();
+                Debug.Log("Monster is here" + playerHealth.curHealth);
+            }
+            else if (!CalculateNewPath())
             {
                 animationController.ChangeAnimationBool(animationController.animationStates.IsIdle);
             }
@@ -79,6 +108,16 @@ public class EnemyController : MonoBehaviour {
         //    TakeDamage(20);
         //}
     }
+
+    void Attack()
+    {
+        currentTime = 0;
+        if (playerHealth.curHealth > 0)
+        {
+            playerHealth.PlayerDamage(attackDamage);
+        }
+    }
+
     bool CalculateNewPath()
     {
         agent.CalculatePath(target.position, navMeshPath);
@@ -109,7 +148,10 @@ public class EnemyController : MonoBehaviour {
             return;
         }
         life -= damage;
+
         animationController.ChangeAnimationBool(animationController.animationStates.IsGettingHit);
+
+
         if (life <= 0 && isAlive)
         {
             col.enabled = false;
