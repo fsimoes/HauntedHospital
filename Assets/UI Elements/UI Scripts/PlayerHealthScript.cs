@@ -7,6 +7,7 @@ public class PlayerHealthScript : MonoBehaviour
 {
     AnimationController animationController;
     public Image HealthStatus;
+    public Text HealthText;
     public int maxHealth = 100;
     public int curHealth = 0;
 
@@ -18,7 +19,7 @@ public class PlayerHealthScript : MonoBehaviour
 
         animationController = GetComponent<AnimationController>();
         curHealth = maxHealth;
-                
+        HealthText.text = curHealth.ToString();
     }
 
 
@@ -26,8 +27,8 @@ public class PlayerHealthScript : MonoBehaviour
     public void PlayerDamage(int attackDamage)
     {
         curHealth -= attackDamage;
-        
-        HealthStatus.fillAmount =  ((float)curHealth / (float)maxHealth);
+        HealthText.text = curHealth.ToString();
+        HealthStatus.fillAmount =  ((float)curHealth / maxHealth);
 
         if (curHealth <= 0 )
         {
@@ -38,6 +39,7 @@ public class PlayerHealthScript : MonoBehaviour
 
     public void Death()
     {
+        IsDead = true;
         animationController.ChangeAnimationBool(animationController.animationStates.IsDead);
 
 

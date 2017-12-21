@@ -16,7 +16,8 @@ public class PlayerAnimationController : AnimationController {
     }
 	
 	// Update is called once per frame
-	 void Update () {
+	 void Update ()
+    {
         base.Update();
         if (player.v == 0 && player.h == 0)
         {

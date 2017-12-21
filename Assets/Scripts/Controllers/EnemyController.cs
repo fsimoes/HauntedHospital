@@ -37,21 +37,7 @@ public class EnemyController : MonoBehaviour {
         navMeshPath = new NavMeshPath();
     }
 
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if(other.gameObject.tag == "Player")
-    //    {
-    //        playerInRange = true;
-    //    }
-    //}
 
-    //void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.tag == "Player")
-    //    {
-    //        playerInRange = false;
-    //    }
-    //}
 
 
     // Update is called once per frame
@@ -78,8 +64,7 @@ public class EnemyController : MonoBehaviour {
                 FaceTarget();
                 agent.velocity = Vector3.zero;
                 animationController.ChangeAnimationBool(animationController.animationStates.IsAttacking);
-                Attack();
-                Debug.Log("Monster is here" + playerHealth.curHealth);
+                Attack();         
             }
             else if (!CalculateNewPath())
             {

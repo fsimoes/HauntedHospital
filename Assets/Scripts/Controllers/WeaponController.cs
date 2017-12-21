@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WeaponController : MonoBehaviour {
 
@@ -13,6 +14,9 @@ public class WeaponController : MonoBehaviour {
     private Quaternion startingShootingRotation = Quaternion.Euler(179.992f, -1.525879f, 270);
     private Vector3 shootingPosition = new Vector3(0, -0.039f, 0.111f);
     private Quaternion shootingRotation = Quaternion.Euler(179.993f, -28.853f, 269.996f);
+
+    public Image bullets;
+    public Text currentAmmoText;
 
     public int magazine;
     private int currentAmmo;
@@ -52,6 +56,8 @@ public class WeaponController : MonoBehaviour {
             this.transform.localRotation = startingShootingRotation;
         }
         //IsShooting = false;
+        currentAmmoText.text = currentAmmo.ToString();
+        bullets.fillAmount = ((float)currentAmmo / magazine);
     }
 
     public int Shoot()

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
     public float speed = 6f;            // The speed that the player will move at.
 
+  
     [HideInInspector] public float h;
     [HideInInspector] public float v;
 
@@ -28,9 +30,11 @@ public class PlayerController : MonoBehaviour {
         weaponController = GetComponentInChildren<WeaponController>();
         anim = GetComponent<PlayerAnimationController>();
     }
-	
-	// Update is called once per frame
-	void FixedUpdate() {
+
+
+
+    // Update is called once per frame
+    void FixedUpdate() {
         currentTime += Time.deltaTime;
         // Store the input axes.
         h = Input.GetAxisRaw("Horizontal");
@@ -43,34 +47,39 @@ public class PlayerController : MonoBehaviour {
         Turning();
         Shoot();
         Reload();
-    }
+       }
     void Shoot()
     {
-        if (Input.GetButton("Fire1") && !isReloading)
+        if (Input.GetButtonDown("Fire1") && !isReloading)
         {
             if (noAmmo)
             {
                 Reload(true);
-                isShooting = false;
+                isShooting = false;               
             }
             else
             {
                 noAmmo = weaponController.Shoot() == 0;
-                isShooting = true;
+                isShooting = true;     
             }
-        }else
+           
+        }
+        else
         {
             isShooting = false;
         }
         weaponController.IsShooting = isShooting;
+        
     }
     void Reload(bool forceReload = false)
     {
         if ((Input.GetKeyDown(KeyCode.R) && !isReloading) || forceReload)
         {
+          
             isReloading = true;
             weaponController.Reload();
             reloadingTime = anim.Reload() + currentTime;
+            
         }
 
         if(currentTime > reloadingTime && isReloading)
@@ -78,6 +87,7 @@ public class PlayerController : MonoBehaviour {
             isReloading = false;
             noAmmo = false;
         }
+        
     }
     void Move(float h, float v)
     {
