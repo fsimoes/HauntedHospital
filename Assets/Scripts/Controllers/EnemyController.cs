@@ -143,6 +143,12 @@ public class EnemyController : MonoBehaviour {
             isAlive = false;
             animationController.ChangeAnimationBool(animationController.animationStates.IsDead);
 
+            if (gameObject.CompareTag("Monster"))
+            {
+                // code to spawn 2 life pickups
+                // and 1 ammo pickup
+            }
+
         }
     }
 

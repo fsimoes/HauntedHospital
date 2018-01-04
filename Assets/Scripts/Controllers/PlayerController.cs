@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour {
     private float reloadingTime = 0;
     private float currentTime = 0;
     private bool noAmmo = false;
+
+    private int pickedHealth;
+
     // Use this for initialization
     void Awake ()
     {
@@ -123,4 +126,28 @@ public class PlayerController : MonoBehaviour {
             playerRigidbody.MoveRotation(newRotation);
         }
     }
+
+    // below comes the code for pickups
+
+    private void pickupHealth()
+    {
+        // since player's health ("curHealth") is in another script ("PlayerHealthScript"), this line is the way to access it
+        // and increase by 25 when Health Box is picked up
+        pickedHealth = GameObject.Find("Player").GetComponent<PlayerHealthScript>().curHealth;
+        pickedHealth += 25;
+
+        if (pickedHealth > 100)
+        {
+            pickedHealth = 100;
+        }
+
+        GameObject.Find("Player").GetComponent<PlayerHealthScript>().curHealth = pickedHealth;
+    }
+
+    private void pickupAmmo()
+    {
+        //
+    }
+
+
 }
