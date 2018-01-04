@@ -32,7 +32,7 @@ public class Grenade : MonoBehaviour {
     {
         //1. Effect
         //2. Add force, Damage
-        //3. Remobe grenade
+        //3. Remove grenade
 
         GameObject GrenadeExplosion = Instantiate(explosionEffect, transform.position, transform.rotation);
 

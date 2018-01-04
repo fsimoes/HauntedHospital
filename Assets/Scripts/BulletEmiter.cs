@@ -5,8 +5,10 @@ using UnityEngine;
 public class BulletEmiter : MonoBehaviour {
 
    public GameObject bullet;
-	// Use this for initialization
-	void Start () {
+   //public GameObject bulletEffect; //Test:Particle
+
+    // Use this for initialization
+    void Start () {
 
     }
 	
@@ -16,7 +18,15 @@ public class BulletEmiter : MonoBehaviour {
         //bulletRotation.y = Quaternion.identity.y;
         Vector3 bulletPosition = transform.position;
 
+        //Test:Particle
+        //Quaternion bulletParticleRotation = transform.rotation;
+        //Vector3 bulletParticlePosition = transform.position;
+
+
         Instantiate(bullet, bulletPosition, bulletRotation);
-       // Instantiate(bullet,transform,false);
+        // Instantiate(bullet,transform,false);
+
+        //Test:Particle
+        //Instantiate(bulletEffect, bulletParticlePosition, bulletParticleRotation);
     }
 }
