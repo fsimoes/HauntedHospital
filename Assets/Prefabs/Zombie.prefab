@@ -1426,7 +1426,7 @@ MonoBehaviour:
   target: {fileID: 0}
   damageInterval: 1
   attackDamage: 2
-  life: 100
+  life: 30
   lookRadius: 100
 --- !u!136 &136994046650461616
 CapsuleCollider:

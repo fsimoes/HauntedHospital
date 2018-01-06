@@ -19,21 +19,20 @@ public class PlayerHealthScript : MonoBehaviour
 
         animationController = GetComponent<AnimationController>();
         curHealth = maxHealth;
-        HealthText.text = curHealth.ToString();
+
     }
-
-
 
     public void PlayerDamage(int attackDamage)
     {
         curHealth -= attackDamage;
         HealthText.text = curHealth.ToString();
-        HealthStatus.fillAmount =  ((float)curHealth / maxHealth);
+        HealthStatus.fillAmount = ((float)curHealth / maxHealth);
 
-        if (curHealth <= 0 )
+        if (curHealth <= 0)
         {
             curHealth = 0;
             Death();
+            Time.timeScale = 0.0f;
         }
     }
 
@@ -42,11 +41,8 @@ public class PlayerHealthScript : MonoBehaviour
         IsDead = true;
         animationController.ChangeAnimationBool(animationController.animationStates.IsDead);
 
-
-
-
     }
 
-    
+
 
 }

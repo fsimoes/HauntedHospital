@@ -37,12 +37,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870722884886460}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -20.42, y: 0.1, z: -83.61}
+  m_LocalPosition: {x: -15.62, y: 0.010000292, z: -5.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: -90}
 --- !u!23 &23545961247941038
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -56,7 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 992dd4cf0a9c9ac4fa84becc730711f1, type: 2}
+  - {fileID: 2100000, guid: 6c28f3e7f0af80f46a213954e0694a61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnGO: {fileID: 1939374076198868, guid: 2988658e36b067f4b852fba96f392b22, type: 2}
-  spawnTotal: 1
-  interval: 5
+  spawnTotal: 10
+  interval: 3
   minStartOffset: 0
   maxStartOffset: 10
