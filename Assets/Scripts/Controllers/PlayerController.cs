@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
     float camRayLength = 100f;          // The length of the ray from the camera into the scene.
     Vector3 movement;                   // The vector to store the direction of the player's movement.
     Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour {
     private bool noAmmo = false;
 
     private int pickedHealth;
+    private int pickedAmmo;
 
     // Use this for initialization
     void Awake ()
@@ -127,7 +129,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    // below comes the code for pickups
+    // below comes the code for the key and pickups
 
     private void pickupHealth()
     {
@@ -147,8 +149,36 @@ public class PlayerController : MonoBehaviour {
     private void pickupAmmo()
     {
         // getting player's ammo ("currentAmmo")  from "WeaponControler.cs"
-        //pickedAmmo = GameObject,.Find("Player").GetComponent<WeaponController>().magazine;
-       // pickedAmmo = magazine;
+        pickedAmmo = GameObject.Find("Player").GetComponent<WeaponController>().magazine;
+
+        if (pickedAmmo > 30)
+        {
+            pickedAmmo = 30;
+        }
+
+        GameObject.Find("Player").GetComponent<WeaponController>().magazine = pickedAmmo;
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Key"))
+        {
+            other.gameObject.SetActive(false);
+
+        }
+
+        if (other.gameObject.CompareTag("AmmoBox"))
+        {
+            other.gameObject.SetActive(false);
+            pickupAmmo();
+        }
+
+        if (other.gameObject.CompareTag("HealthBox"))
+        {
+            other.gameObject.SetActive(false);
+            pickupHealth();
+        }
     }
 
 

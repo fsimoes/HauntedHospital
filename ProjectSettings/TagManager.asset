@@ -13,6 +13,9 @@ TagManager:
   - pauseMenu
   - Zombie
   - HealthBG
+  - Key
+  - AmmoBox
+  - HealthBox
   layers:
   - Default
   - TransparentFX
