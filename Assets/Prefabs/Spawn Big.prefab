@@ -108,7 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnGO: {fileID: 1845127146658936, guid: c45da5ddf44f8f849b87e3d4205c4fa7, type: 2}
-  spawnTotal: 1
-  interval: 10
+  spawnTotal: 4
+  spawnCount: 0
+  interval: 75
   minStartOffset: 0
   maxStartOffset: 0

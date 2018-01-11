@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 
 public class EnemyController : MonoBehaviour {
+
     AnimationController animationController;
     NavMeshAgent agent;
     float currentTime = 0;

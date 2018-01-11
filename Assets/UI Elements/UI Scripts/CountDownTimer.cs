@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class CountDownTimer : MonoBehaviour {
     
     public Text countdownText;
+    public GameObject GameOverScreen;
     private float timeStamp;
     public bool usingTimer = false;
 
@@ -35,6 +36,8 @@ public class CountDownTimer : MonoBehaviour {
         float timeLeft = timeStamp - Time.time;
         if(timeLeft <=0)
         {
+            GameOverScreen.gameObject.SetActive(true);
+            Time.timeScale = 0;
             TimesUp();
             return;
         }

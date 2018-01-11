@@ -7,19 +7,21 @@ public class PauseGame : MonoBehaviour
 
     public Transform canvas;
     public Transform creditCanvas;
+    public Transform GameOverScreen;
+
 
 
 
     void Update ()
     {
-	    if(Input.GetKeyDown(KeyCode.Escape))
+	    if(Input.GetKeyDown(KeyCode.Escape) && GameOverScreen.gameObject.activeInHierarchy == false)
         {
             Debug.Log("Game paused");
             if(canvas.gameObject.activeInHierarchy == false)
             {
                 canvas.gameObject.SetActive(true);
                 creditCanvas.gameObject.SetActive(false);
-                Time.timeScale = 0.001f;
+                Time.timeScale = 0.0f;
          
             }
             else

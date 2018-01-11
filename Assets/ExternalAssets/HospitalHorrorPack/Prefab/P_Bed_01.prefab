@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 33337303227313064}
   - component: {fileID: 23766697793474074}
   - component: {fileID: 64210766755167126}
+  - component: {fileID: 208843409333841434}
   m_Layer: 0
   m_Name: SM_Bed_01_S
   m_TagString: Untagged
@@ -209,3 +210,18 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: b47f5c9ac3a4adc4582f259efbe3c8e5, type: 3}
+--- !u!208 &208843409333841434
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829642673050802}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 107.813, y: 2.9800003, z: 60.038002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -10.969001, y: 57.913002, z: -3.9670002}
+  m_TimeToStationary: 0.5

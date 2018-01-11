@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerHealthScript : MonoBehaviour
 {
     AnimationController animationController;
+    public GameObject GameOverScreen;
     public Image HealthStatus;
     public Text HealthText;
     public int maxHealth = 100;
@@ -16,7 +17,6 @@ public class PlayerHealthScript : MonoBehaviour
 
     void Awake()
     {
-
         animationController = GetComponent<AnimationController>();
         curHealth = maxHealth;
 
@@ -30,9 +30,10 @@ public class PlayerHealthScript : MonoBehaviour
 
         if (curHealth <= 0)
         {
+            Time.timeScale = 0;
             curHealth = 0;
             Death();
-            Time.timeScale = 0.0f;
+            GameOverScreen.gameObject.SetActive(true);
         }
     }
 

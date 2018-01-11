@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public void StartGame(string name)
     {
         SceneManager.LoadScene(name);
+        Time.timeScale = 1.0f;
     }
 
 	public void Quit()
