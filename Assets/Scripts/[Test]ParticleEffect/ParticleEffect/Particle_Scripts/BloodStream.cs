@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BloodStream : MonoBehaviour
 {
+    public ParticleSystem BloodStreamEfect;
+
     GameObject Player;
     //GameObject[] Monsters;
 
@@ -12,12 +14,13 @@ public class BloodStream : MonoBehaviour
     {
         Player = GameObject.Find("Player");
         //Monsters = GameObject.FindGameObjectsWithTag("Monster");
-    }
+        BloodStreamEfect.Stop();
+}
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+void Update()
     {
-        this.enabled = true;
+        //this.enabled = true;
         transform.position = GameObject.Find("Player").transform.position;
     }
 }

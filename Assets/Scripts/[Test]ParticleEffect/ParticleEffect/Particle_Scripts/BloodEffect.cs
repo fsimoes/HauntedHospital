@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BloodEffect : MonoBehaviour
 {
-    //public GameObject BloodStream;
+    public ParticleSystem BloodSpray;
 
     GameObject Player;
     //GameObject[] Monsters;
@@ -14,12 +14,13 @@ public class BloodEffect : MonoBehaviour
     {
         Player = GameObject.Find("Player");
         //Monsters = GameObject.FindGameObjectsWithTag("Monster");
+        BloodSpray.Stop();
     }
 
     // Update is called once per frame
     void Update ()
     {
-        this.enabled = true;
+        //this.enabled = true;
         transform.position = GameObject.Find("Player").transform.position;
     }
 }

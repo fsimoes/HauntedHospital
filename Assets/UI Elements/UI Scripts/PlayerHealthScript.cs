@@ -15,6 +15,9 @@ public class PlayerHealthScript : MonoBehaviour
     public bool IsDead;
     bool isattacked;
 
+    public ParticleSystem Blood;
+    public ParticleSystem BloodStream;
+
     void Awake()
     {
         animationController = GetComponent<AnimationController>();
@@ -27,6 +30,12 @@ public class PlayerHealthScript : MonoBehaviour
         curHealth -= attackDamage;
         HealthText.text = curHealth.ToString();
         HealthStatus.fillAmount = ((float)curHealth / maxHealth);
+
+        Blood.Play();
+        if(curHealth < 30)
+        { 
+            BloodStream.Play();
+        }
 
         if (curHealth <= 0)
         {

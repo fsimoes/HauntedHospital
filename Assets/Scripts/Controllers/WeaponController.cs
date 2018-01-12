@@ -26,6 +26,7 @@ public class WeaponController : MonoBehaviour {
 
     public GameObject bulletEmiterGO;
     BulletEmiter bullerEmiter;
+    
     // Use this for initialization
     void Awake () {
         this.transform.SetParent(hand);
