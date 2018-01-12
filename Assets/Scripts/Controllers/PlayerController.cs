@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
     private void pickupAmmo()
     {
         // getting player's ammo ("currentAmmo")  from "WeaponControler.cs"
-        pickedAmmo = GameObject.Find("Player").GetComponent<WeaponController>().magazine;
+        //pickedAmmo = GameObject.Find("Player").GetComponent<WeaponController>().magazine;
 
         if (pickedAmmo > 30)
         {
