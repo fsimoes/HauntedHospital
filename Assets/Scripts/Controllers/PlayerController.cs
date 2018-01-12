@@ -24,8 +24,15 @@ public class PlayerController : MonoBehaviour
     private float currentTime = 0;
     private bool noAmmo = false;
 
+    // variables for the pickups and key
     private int pickedHealth;
     private int pickedAmmo;
+    private bool hasKey = false;
+
+    // audio for the pickups and key
+    AudioSource audioSource;
+    public AudioClip[] sounds;
+
 
     // Use this for initialization
     void Awake ()
@@ -34,6 +41,12 @@ public class PlayerController : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         weaponController = GetComponentInChildren<WeaponController>();
         anim = GetComponent<PlayerAnimationController>();
+    }
+
+    // function to get audio source
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -137,6 +150,7 @@ public class PlayerController : MonoBehaviour
         // and increase by 25 when Health Box is picked up
         pickedHealth = GameObject.Find("Player").GetComponent<PlayerHealthScript>().curHealth;
         pickedHealth += 25;
+        Debug.Log(pickedHealth);
 
         if (pickedHealth > 100)
         {
@@ -144,12 +158,16 @@ public class PlayerController : MonoBehaviour
         }
 
         GameObject.Find("Player").GetComponent<PlayerHealthScript>().curHealth = pickedHealth;
+
+        audioSource.PlayOneShot(sounds[1], 1F);
     }
 
     private void pickupAmmo()
     {
         // getting player's ammo ("currentAmmo")  from "WeaponControler.cs"
-        //pickedAmmo = GameObject.Find("Player").GetComponent<WeaponController>().magazine;
+        pickedAmmo = GameObject.Find("Player").GetComponent<WeaponController>().magazine;
+        pickedAmmo += 10;
+        Debug.Log(pickedAmmo);
 
         if (pickedAmmo > 30)
         {
@@ -157,7 +175,20 @@ public class PlayerController : MonoBehaviour
         }
 
         GameObject.Find("Player").GetComponent<WeaponController>().magazine = pickedAmmo;
+        audioSource.PlayOneShot(sounds[0], 10F);
     }
+
+    private void pickupKey()
+    {
+        // update UI;
+        hasKey = true;
+        
+        // key sound
+        audioSource.PlayOneShot(sounds[2], 1F);
+        // yes sound
+        audioSource.PlayOneShot(sounds[3], 1F);
+    }
+
 
 
     private void OnTriggerEnter(Collider other)
@@ -165,13 +196,14 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Key"))
         {
             other.gameObject.SetActive(false);
-
+            pickupKey();
         }
 
         if (other.gameObject.CompareTag("AmmoBox"))
         {
             other.gameObject.SetActive(false);
             pickupAmmo();
+            
         }
 
         if (other.gameObject.CompareTag("HealthBox"))
