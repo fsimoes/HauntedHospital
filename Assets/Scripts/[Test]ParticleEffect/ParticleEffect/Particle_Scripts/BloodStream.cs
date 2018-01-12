@@ -6,13 +6,15 @@ public class BloodStream : MonoBehaviour
 {
     public ParticleSystem BloodStreamEfect;
 
-    GameObject Player;
+//    GameObject Player;
+    public Transform target;
+
     //GameObject[] Monsters;
 
     // Use this for initialization
     void Start()
     {
-        Player = GameObject.Find("Player");
+  //      Player = GameObject.Find("Player");
         //Monsters = GameObject.FindGameObjectsWithTag("Monster");
         BloodStreamEfect.Stop();
 }
@@ -21,6 +23,8 @@ public class BloodStream : MonoBehaviour
 void Update()
     {
         //this.enabled = true;
-        transform.position = GameObject.Find("Player").transform.position;
-    }
+        //transform.position = GameObject.Find("Player").transform.position;
+        transform.position = target.position;
+
+}
 }

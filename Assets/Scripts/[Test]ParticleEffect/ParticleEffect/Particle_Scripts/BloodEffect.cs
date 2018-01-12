@@ -5,14 +5,15 @@ using UnityEngine;
 public class BloodEffect : MonoBehaviour
 {
     public ParticleSystem BloodSpray;
+    public Transform target;
 
-    GameObject Player;
+    //GameObject Player;
     //GameObject[] Monsters;
 
 	// Use this for initialization
 	void Start ()
     {
-        Player = GameObject.Find("Player");
+        //Player = GameObject.Find("Player");
         //Monsters = GameObject.FindGameObjectsWithTag("Monster");
         BloodSpray.Stop();
     }
@@ -21,6 +22,7 @@ public class BloodEffect : MonoBehaviour
     void Update ()
     {
         //this.enabled = true;
-        transform.position = GameObject.Find("Player").transform.position;
+        //transform.position = GameObject.Find("Player").transform.position;
+        transform.position = target.position;
     }
 }
